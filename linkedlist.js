@@ -8,15 +8,17 @@ class LinkedList {
     return this.getLast(node.next);
   }
   addLast(newVal) {
+    if (newVal === undefined) return;
     const lastNode = this.getLast(this.list);
     lastNode.value = newVal;
     lastNode.next = {};
   }
   addFirst(newVal) {
-    const originalBaseNode = this.list;
+    if (newVal === undefined) return;
+    const baseNode = this.list;
     this.list = {
       value: newVal,
-      next: originalBaseNode
+      next: baseNode
     };
   }
   getIndex(index, currIndex = 0, node = this.list) {
@@ -51,25 +53,39 @@ class LinkedList {
     if (node.next) return this.contains(value, node.next);
     return false;
   }
-  map(fn, node = this.list, returnArr = []) {
+  map(fn, node = this.list, array = []) {
     if (node.value !== undefined) {
-      returnArr.push(fn(node.value));
-      this.map(fn, node.next, returnArr);
-      return returnArr;
+      array.push(fn(node.value));
+      this.map(fn, node.next, array);
+      return array;
     } else {
-      return returnArr;
+      return array;
     }
   }
-  filter(fn, node = this.list, returnArr = []) {
+  filter(fn, node = this.list, array = []) {
     if (node.value !== undefined) {
       if (fn(node.value)) {
-        returnArr.push(node.value);
+        array.push(node.value);
       }
       if (node.next !== undefined) {
-        return this.filter(fn, node.next, returnArr);
+        return this.filter(fn, node.next, array);
       }
     }
-    return returnArr;
+    return array;
+  }
+  getArray(node = this.list, array = []) {
+    if (node.value !== undefined) {
+      array.push(node.value);
+      return this.getArray(node.next, array);
+    }
+    return array;
+  }
+  getSet(node = this.list, set = new Set()) {
+    if (node.value !== undefined) {
+      set.add(node.value);
+      return this.getSet(node.next, set);
+    }
+    return set;
   }
 }
 
@@ -81,4 +97,11 @@ myList.addLast(3);
 myList.addLast(4);
 myList.addLast(5);
 myList.addLast(6);
+myList.addLast(6);
+myList.addLast(6);
+myList.addLast(6);
+myList.addLast(6);
+myList.addLast(6);
 console.log(myList.filter(num => num % 2 === 0));
+console.log(myList.getArray());
+console.log(myList.getSet());
