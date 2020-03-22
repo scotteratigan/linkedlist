@@ -43,14 +43,23 @@ class LinkedList {
       node.next = node.next.next;
     }
   }
+  clear() {
+    this.list = {};
+  }
+  map(fn, node = this.list, returnArr = []) {
+    if (node.value !== undefined) {
+      returnArr.push(fn(node.value));
+      this.map(fn, node.next, returnArr);
+      return returnArr;
+    } else {
+      return returnArr;
+    }
+  }
 }
 
 const myList = new LinkedList();
-myList.addLast('1');
-myList.addLast('2');
-myList.addLast('4');
-myList.addFirst('0');
-myList.addAtIndex(3, '3');
-console.log(JSON.stringify(myList));
-myList.removeAtIndex(0);
-console.log(JSON.stringify(myList));
+myList.addLast(0);
+myList.addLast(1);
+myList.addLast(2);
+myList.addLast(3);
+console.log(myList.map(num => num * 2));
