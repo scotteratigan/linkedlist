@@ -46,6 +46,11 @@ class LinkedList {
   clear() {
     this.list = {};
   }
+  contains(value, node = this.list) {
+    if (node.value === value) return true;
+    if (node.next) return this.contains(value, node.next);
+    return false;
+  }
   map(fn, node = this.list, returnArr = []) {
     if (node.value !== undefined) {
       returnArr.push(fn(node.value));
@@ -62,4 +67,5 @@ myList.addLast(0);
 myList.addLast(1);
 myList.addLast(2);
 myList.addLast(3);
+console.log(myList.contains(3));
 console.log(myList.map(num => num * 2));
