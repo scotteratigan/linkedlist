@@ -1,7 +1,9 @@
 class LinkedList {
   // Be design, cannot hold undefined value.
+  // todo: revisit this to check against node.next instead of node.next.value
   constructor() {
     this.list = {};
+    // todo: add length
   }
   getLast(node) {
     if (node.next === undefined) return node;
@@ -86,6 +88,16 @@ class LinkedList {
     }
     return array;
   }
+  reduce(reduceFn, accumulator, node = this.list) {
+    const currentValue = node.value;
+    if (accumulator === undefined) {
+      accumulator = currentValue;
+    } else {
+      accumulator = reduceFn(accumulator, currentValue);
+    }
+    if (node.next.value !== undefined) return this.reduce(reduceFn, accumulator, node.next)
+    return accumulator;
+  }
   getSet(node = this.list, set = new Set()) {
     if (node.value !== undefined) {
       set.add(node.value);
@@ -106,8 +118,11 @@ myList.addLast(0);
 myList.addLast(1);
 myList.addLast(2);
 myList.addLast(3);
-const myClone = myList.clone();
-console.log('myClone:', myClone);
+const reduceFn = (accumulator, currentValue) => (accumulator += currentValue);
+const reduced = myList.reduce(reduceFn);
+console.log('reduced:', reduced);
+// const myClone = myList.clone();
+// console.log('myClone:', myClone);
 // myList.forEach(elm => console.log(elm));
 // console.log(JSON.stringify(myList));
 // console.log(JSON.stringify(myList.clone()));
