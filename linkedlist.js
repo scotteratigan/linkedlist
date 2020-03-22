@@ -73,6 +73,12 @@ class LinkedList {
     }
     return array;
   }
+  forEach(fn, node = this.list) {
+    if (node.value !== undefined) {
+      fn(node.value);
+      this.forEach(fn, node.next)
+    }
+  }
   getArray(node = this.list, array = []) {
     if (node.value !== undefined) {
       array.push(node.value);
@@ -87,6 +93,12 @@ class LinkedList {
     }
     return set;
   }
+  clone() {
+    const elements = this.getArray();
+    const newList = new LinkedList;
+    elements.forEach(elm => newList.addLast(elm));
+    return newList;
+  }
 }
 
 const myList = new LinkedList();
@@ -94,14 +106,8 @@ myList.addLast(0);
 myList.addLast(1);
 myList.addLast(2);
 myList.addLast(3);
-myList.addLast(4);
-myList.addLast(5);
-myList.addLast(6);
-myList.addLast(6);
-myList.addLast(6);
-myList.addLast(6);
-myList.addLast(6);
-myList.addLast(6);
-console.log(myList.filter(num => num % 2 === 0));
-console.log(myList.getArray());
-console.log(myList.getSet());
+const myClone = myList.clone();
+console.log('myClone:', myClone);
+// myList.forEach(elm => console.log(elm));
+// console.log(JSON.stringify(myList));
+// console.log(JSON.stringify(myList.clone()));
