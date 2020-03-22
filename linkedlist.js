@@ -60,6 +60,17 @@ class LinkedList {
       return returnArr;
     }
   }
+  filter(fn, node = this.list, returnArr = []) {
+    if (node.value !== undefined) {
+      if (fn(node.value)) {
+        returnArr.push(node.value);
+      }
+      if (node.next !== undefined) {
+        return this.filter(fn, node.next, returnArr);
+      }
+    }
+    return returnArr;
+  }
 }
 
 const myList = new LinkedList();
@@ -67,5 +78,7 @@ myList.addLast(0);
 myList.addLast(1);
 myList.addLast(2);
 myList.addLast(3);
-console.log(myList.contains(3));
-console.log(myList.map(num => num * 2));
+myList.addLast(4);
+myList.addLast(5);
+myList.addLast(6);
+console.log(myList.filter(num => num % 2 === 0));
