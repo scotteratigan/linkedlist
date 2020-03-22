@@ -1,4 +1,5 @@
-export class LinkedList {
+/* eslint-disable no-param-reassign */
+class LinkedList {
   // Be design, cannot hold undefined value.
   // todo: revisit this to check against node.next instead of node.next.value
   // todo: create linked list from iterable
@@ -6,32 +7,41 @@ export class LinkedList {
     this.list = {};
     this.length = 0;
   }
-  getLast(node) {
+
+  getLastNode(node) {
     if (node.next === undefined) return node;
-    return this.getLast(node.next);
+    return this.getLastNode(node.next);
   }
+
   addLast(newVal) {
     if (newVal === undefined) return;
-    const lastNode = this.getLast(this.list);
+    const lastNode = this.getLastNode(this.list);
     lastNode.value = newVal;
     lastNode.next = {};
     this.length += 1;
   }
+
   addFirst(newVal) {
     if (newVal === undefined) return;
     const baseNode = this.list;
     this.list = {
       value: newVal,
-      next: baseNode
+      next: baseNode,
     };
     this.length += 1;
   }
+
   getIndex(index, currIndex = 0, node = this.list) {
     if (index === currIndex) {
       return node;
     }
     return this.getIndex(index, currIndex + 1, node.next);
   }
+
+  getValueAtIndex(index) {
+    return this.getIndex(index).value;
+  }
+
   addAtIndex(index, newVal) {
     const node = this.getIndex(index);
     const currNodeValue = node.value;
@@ -39,11 +49,12 @@ export class LinkedList {
     node.value = newVal;
     node.next = {
       value: currNodeValue,
-      next: currNodeNext
+      next: currNodeNext,
     };
   }
+
   removeAtIndex(index) {
-    const node = this.getIndex(index);
+    let node = this.getIndex(index);
     const returnValue = node.value;
     // node.value = undefined;
     if (node.next) {
@@ -55,44 +66,47 @@ export class LinkedList {
     this.length -= 1;
     return returnValue;
   }
+
   removeFirst() {
     return this.removeAtIndex(0);
   }
+
   clear() {
     this.list = {};
     this.length = 0;
   }
+
   contains(value, node = this.list) {
     if (node.value === value) return true;
     if (node.next) return this.contains(value, node.next);
     return false;
   }
+
   map(fn, node = this.list, array = []) {
-    if (node.value !== undefined) {
-      array.push(fn(node.value));
-      this.map(fn, node.next, array);
-      return array;
-    } else {
-      return array;
-    }
+    if (node.value === undefined) return array;
+    array.push(fn(node.value));
+    this.map(fn, node.next, array);
+    return array;
   }
+
   filter(fn, node = this.list, array = []) {
-    if (node.value !== undefined) {
-      if (fn(node.value)) {
-        array.push(node.value);
-      }
-      if (node.next !== undefined) {
-        return this.filter(fn, node.next, array);
-      }
+    if (node.value === undefined) return array;
+    if (fn(node.value)) {
+      array.push(node.value);
+    }
+    if (node.next !== undefined) {
+      return this.filter(fn, node.next, array);
     }
     return array;
   }
+
   forEach(fn, node = this.list) {
     if (node.value !== undefined) {
       fn(node.value);
-      this.forEach(fn, node.next)
+      this.forEach(fn, node.next);
     }
   }
+
   getArray(node = this.list, array = []) {
     if (node.value !== undefined) {
       array.push(node.value);
@@ -100,6 +114,7 @@ export class LinkedList {
     }
     return array;
   }
+
   reduce(reduceFn, accumulator, node = this.list) {
     const currentValue = node.value;
     if (accumulator === undefined) {
@@ -107,9 +122,10 @@ export class LinkedList {
     } else {
       accumulator = reduceFn(accumulator, currentValue);
     }
-    if (node.next.value !== undefined) return this.reduce(reduceFn, accumulator, node.next)
+    if (node.next.value !== undefined) return this.reduce(reduceFn, accumulator, node.next);
     return accumulator;
   }
+
   getSet(node = this.list, set = new Set()) {
     if (node.value !== undefined) {
       set.add(node.value);
@@ -117,10 +133,13 @@ export class LinkedList {
     }
     return set;
   }
+
   clone() {
     const elements = this.getArray();
-    const newList = new LinkedList;
-    elements.forEach(elm => newList.addLast(elm));
+    const newList = new LinkedList();
+    elements.forEach((elm) => newList.addLast(elm));
     return newList;
   }
 }
+
+module.exports = LinkedList;
