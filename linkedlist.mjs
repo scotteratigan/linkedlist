@@ -1,4 +1,4 @@
-class LinkedList {
+export class LinkedList {
   // Be design, cannot hold undefined value.
   // todo: revisit this to check against node.next instead of node.next.value
   constructor() {

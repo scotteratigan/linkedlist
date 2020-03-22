@@ -1,3 +1,5 @@
+import { LinkedList } from './linkedlist.mjs'
+
 const myList = new LinkedList();
 myList.addLast(0);
 myList.addLast(1);
