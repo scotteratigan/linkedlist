@@ -1,9 +1,10 @@
 export class LinkedList {
   // Be design, cannot hold undefined value.
   // todo: revisit this to check against node.next instead of node.next.value
+  // todo: create linked list from iterable
   constructor() {
     this.list = {};
-    // todo: add length
+    this.length = 0;
   }
   getLast(node) {
     if (node.next === undefined) return node;
@@ -14,6 +15,7 @@ export class LinkedList {
     const lastNode = this.getLast(this.list);
     lastNode.value = newVal;
     lastNode.next = {};
+    this.length += 1;
   }
   addFirst(newVal) {
     if (newVal === undefined) return;
@@ -22,6 +24,7 @@ export class LinkedList {
       value: newVal,
       next: baseNode
     };
+    this.length += 1;
   }
   getIndex(index, currIndex = 0, node = this.list) {
     if (index === currIndex) {
@@ -41,14 +44,23 @@ export class LinkedList {
   }
   removeAtIndex(index) {
     const node = this.getIndex(index);
-    node.value = undefined;
+    const returnValue = node.value;
+    // node.value = undefined;
     if (node.next) {
       node.value = node.next.value;
       node.next = node.next.next;
+    } else {
+      node = {};
     }
+    this.length -= 1;
+    return returnValue;
+  }
+  removeFirst() {
+    return this.removeAtIndex(0);
   }
   clear() {
     this.list = {};
+    this.length = 0;
   }
   contains(value, node = this.list) {
     if (node.value === value) return true;
