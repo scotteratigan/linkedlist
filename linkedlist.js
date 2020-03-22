@@ -25,11 +25,22 @@ class LinkedList {
     }
     return this.getIndex(index, currIndex + 1, node.next);
   }
+  addAtIndex(index, newVal) {
+    const node = this.getIndex(index);
+    const currNodeValue = node.value;
+    const currNodeNext = node.next;
+    node.value = newVal;
+    node.next = {
+      value: currNodeValue,
+      next: currNodeNext
+    };
+  }
 }
 
 const myList = new LinkedList();
 myList.add('0');
 myList.add('1');
 myList.add('2');
+myList.addAtIndex(1, 'scott');
 console.log(myList.getIndex(1));
 console.log(JSON.stringify(myList));
