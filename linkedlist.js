@@ -7,7 +7,7 @@ class LinkedList {
     if (node.next === undefined) return node;
     return this.getLast(node.next);
   }
-  add(newVal) {
+  addLast(newVal) {
     const lastNode = this.getLast(this.list);
     lastNode.value = newVal;
     lastNode.next = {};
@@ -46,10 +46,11 @@ class LinkedList {
 }
 
 const myList = new LinkedList();
-myList.add('0');
-myList.add('1');
-myList.add('2');
-myList.addAtIndex(1, 'scott');
+myList.addLast('1');
+myList.addLast('2');
+myList.addLast('4');
+myList.addFirst('0');
+myList.addAtIndex(3, '3');
 console.log(JSON.stringify(myList));
 myList.removeAtIndex(0);
 console.log(JSON.stringify(myList));
