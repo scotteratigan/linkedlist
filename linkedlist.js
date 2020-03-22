@@ -35,6 +35,14 @@ class LinkedList {
       next: currNodeNext
     };
   }
+  removeAtIndex(index) {
+    const node = this.getIndex(index);
+    node.value = undefined;
+    if (node.next) {
+      node.value = node.next.value;
+      node.next = node.next.next;
+    }
+  }
 }
 
 const myList = new LinkedList();
@@ -42,5 +50,6 @@ myList.add('0');
 myList.add('1');
 myList.add('2');
 myList.addAtIndex(1, 'scott');
-console.log(myList.getIndex(1));
+console.log(JSON.stringify(myList));
+myList.removeAtIndex(0);
 console.log(JSON.stringify(myList));
