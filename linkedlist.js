@@ -44,6 +44,9 @@ class LinkedList {
 
   addAtIndex(index, newVal) {
     const node = this.getIndex(index);
+    if (node === undefined) {
+      throw new Error('Index out of bounds');
+    }
     const currNodeValue = node.value;
     const currNodeNext = node.next;
     node.value = newVal;

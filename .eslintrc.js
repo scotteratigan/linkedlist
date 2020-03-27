@@ -17,10 +17,6 @@ module.exports = {
   rules: {
     "import/extensions": [
       "error",
-      "ignorePackages",
-      {
-        mjs: "never"
-      }
     ],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",

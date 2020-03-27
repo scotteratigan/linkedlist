@@ -13,6 +13,7 @@ function testLength() {
   console.log('length:', myList.length);
 }
 
+// eslint-disable-next-line no-unused-vars
 function testReduce() {
   const myList = new LinkedList();
   myList.addLast(1);
@@ -37,5 +38,7 @@ function testClone() {
   console.log(JSON.stringify(myList.clone()));
 }
 
-// testLength();
-testReduce();
+const myList = new LinkedList();
+myList.addLast(1);
+myList.addLast(2);
+myList.addAtIndex(5, 3);
