@@ -1,6 +1,5 @@
 const LinkedList = require('./linkedlist.js');
 
-
 test('can add an element', () => {
   const myList = new LinkedList();
   expect(myList.getValueAtIndex(0)).toBe(undefined);
@@ -66,7 +65,19 @@ test('addAtIndex can insert at end', () => {
   myList.addLast(1);
   myList.addLast(2);
   myList.addAtIndex(2, 3);
-  expect(myList.getValueAtIndex(0)).toBe(1);
-  expect(myList.getValueAtIndex(1)).toBe(2);
-  expect(myList.getValueAtIndex(1)).toBe(3);
+  expect(myList.getValueAtIndex(2)).toBe(3);
+  // expect(myList.getValueAtIndex(0)).toThrow();
+});
+
+test('addAtIndex can\'t insert beyond end', () => {
+  let myList;
+  try {
+    myList = new LinkedList();
+    myList.addAtIndex(5, 1);
+    expect(myList.getValueAtIndex(5)).tothrow();
+  } catch (err) {
+    // ignore the error
+  } finally {
+    expect(JSON.stringify(myList.getArray())).toEqual('[]');
+  }
 });

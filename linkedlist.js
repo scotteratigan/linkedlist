@@ -35,7 +35,10 @@ class LinkedList {
     if (index === currIndex) {
       return node;
     }
-    return this.getIndex(index, currIndex + 1, node.next);
+    if (node.next) {
+      return this.getIndex(index, currIndex + 1, node.next);
+    }
+    throw new Error("Index doesn't exist!");
   }
 
   getValueAtIndex(index) {
