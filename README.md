@@ -1,2 +1,7 @@
 # linkedlist
-JS implementation of a linked list
+TypeScript implementation of a linked list
+
+# Running tests:
+- npm t
+
+# Compile

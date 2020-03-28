@@ -1,4 +1,4 @@
-const LinkedList = require('./linkedlist.js');
+const LinkedList = require('./linkedlist.ts');
 
 test('can add an element', () => {
   const myList = new LinkedList();
@@ -74,7 +74,7 @@ test('addAtIndex can\'t insert beyond end', () => {
   try {
     myList = new LinkedList();
     myList.addAtIndex(5, 1);
-    expect(myList.getValueAtIndex(5)).tothrow();
+    expect(myList.getValueAtIndex(5)).toThrow();
   } catch (err) {
     // ignore the error
   } finally {
